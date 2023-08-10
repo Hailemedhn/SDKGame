@@ -151,3 +151,17 @@ h2{
     color:white;
     font-size: 1.8em;
 }
+.welcomeCard{
+    width: fit-content;
+    height: fit-content;
+    padding: 40px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: blueviolet;
+}
+.welcomeCard h1 {
+    color: white;
+}
+.welcomeCard h2{
+    text-align: center;
+}
