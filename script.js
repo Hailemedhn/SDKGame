@@ -147,7 +147,7 @@ function actuallyDo(){
                     howManyChanged++
                 }
             }
-            if(previous === howManyChanged && mode==="solve"){
+            if(previous === howManyChanged){
                 alert("You might have made a mistake entering the sudoku.")
                 break
             }
