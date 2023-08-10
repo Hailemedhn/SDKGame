@@ -44,6 +44,7 @@ body{
 .allContainer{
     justify-content: center;
     align-items: center;
+    height: fit-content;
 }
 table{
     border: 2px solid black;
@@ -75,7 +76,7 @@ p{
     font-weight: bold;
     font-size: 30px;
     padding:10px; 
-    margin:30px 5px 20px 5px;     
+    margin:30px 5px 10px 5px;     
     background-color: gray;
     color:white;
     border-radius: 2px;
@@ -88,7 +89,7 @@ span{
     font-weight: bold;
     font-size: 30px;
     padding:10px; 
-    margin:10px 5px 10px 5px;     
+    margin:10px 5px 5px 5px;     
     background-color: gray;
     color:white;
 }
@@ -103,7 +104,7 @@ span:hover{
     align-items: center;
 }
 button{
-    margin: 10px;
+    margin-top: 10px;
     width:30%;
     height:50px;
     border-radius: 10px;
@@ -116,7 +117,7 @@ button:hover{
 }
 .generateContainer{
     width: 100%;
-    margin : 20px;
+    margin : 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -134,4 +135,19 @@ button:hover{
     font-size: 10em;
     display:none;
     background-color: white;
+}
+.card{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    background-color: blueviolet;
+    border-radius: 20px;
+}
+h2{
+    color:white;
+    font-size: 1.8em;
 }

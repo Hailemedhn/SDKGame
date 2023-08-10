@@ -53,7 +53,7 @@ for(let i=0; i<allTds.length; ++i){
                 }
             }
             tdIndex=x;
-            if(resetArray[x]!==parseInt(event.target.innerHTML )&& mode==="play"){
+            if(resetArray[x]!==parseInt(event.target.innerHTML ) && mode==="play"){
                 event.target.style.color = "red"
             }else{
                 event.target.style.textDecoration = "none";
@@ -127,7 +127,7 @@ function actuallyDo(){
         let complete=false;
         let howManyChanged = 0;
         let previous = 0;
-
+        outerMost:
         while(!complete){
             let i=0;
             crossOut();
@@ -137,9 +137,18 @@ function actuallyDo(){
             crossOut();
             transferToTable();
             for(i=0;i<81;++i){
-
-                if(allTds[i].innerHTML.trim()===""){
-                    break;
+                for(let k = 0; k < 9; k++){
+                    for(let m = 0; m <9; m++){
+                        try{
+                            if(sudoku[i][k][0] < 10 || sudoku[i][k][m]===0){
+                                howManyChanged++;
+                                break;
+                            }
+                        }catch(e){
+                            alert("Fill the Sudoku properly First.");
+                            break outerMost;
+                        }
+                    }
                 }
             }
             for(let j=0; j< 81; j++){
