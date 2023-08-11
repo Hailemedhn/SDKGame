@@ -28,12 +28,30 @@ startButton[1].addEventListener("click",actuallyDo);
 resetButton[0].addEventListener("click", ()=>{
     for(let i=0; i< allTds.length; ++i){
         allTds[i].innerHTML="";
+
+    }
+    for(let i=0; i<9; i++){
+        for(let j=0; j<9; j++){
+            for(let k=0; k<9; k++){
+                sudoku[i][j][k] == "0";
+            }
+        }
+
     }
 })
 resetButton[1].addEventListener("click", ()=>{
     for(let i=0; i< allTds.length; ++i){
         allTds[i].innerHTML="";
     }
+    for(let i=0; i<9; i++){
+        for(let j=0; j<9; j++){
+            for(let k=0; k<9; k++){
+                sudoku[i][j][k] == "0";
+            }
+        }
+
+    }
+
 })
 
 let selected = "";
@@ -140,13 +158,16 @@ function actuallyDo(){
                 for(let k = 0; k < 9; k++){
                     for(let m = 0; m <9; m++){
                         try{
-                            if(sudoku[i][k][0] < 10 || sudoku[i][k][m]===0){
+                            if(sudoku[i][k][0] < 10){
                                 howManyChanged++;
-                                break;
+                                
                             }
                         }catch(e){
-                            alert("Fill the Sudoku properly First.");
-                            break outerMost;
+                            if(sudoku[i][k][m]==="0"){
+                                howManyChanged++
+                            }
+                            continue;
+                            
                         }
                     }
                 }
@@ -165,6 +186,7 @@ function actuallyDo(){
                 complete=true;
             }
         }
+
 }
 function crossOut(){
     let counter=0;
