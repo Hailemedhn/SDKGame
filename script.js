@@ -58,6 +58,7 @@ let selected = "";
 let tdIndex;
 
 eraseButton.addEventListener("click",()=>{selected=""})
+
 for(let i=0; i<allTds.length; ++i){
     allTds[i].addEventListener("click",(event)=>{
         for(let k=0; k<9; ++k){
@@ -69,27 +70,33 @@ for(let i=0; i<allTds.length; ++i){
                 if(allTds[x]===event.target){
                     break;
                 }
-            }
-            tdIndex=x;
-            if(resetArray[x]!==parseInt(event.target.innerHTML ) && mode==="play"){
-                event.target.style.color = "red"
-            }else{
-                event.target.style.textDecoration = "none";
-                let r;
-                for( r=0; r<81; ++r){
-                    if(parseInt(allTds[r].innerHTML)!==resetArray[r]){
-                        break;
-                    }
-                }
-                if(r===81){
-                    gameOver.style.display="block";
-                    gameOver.addEventListener("click",()=>{gameOver.style.display="none"; 
-                })
-                }
-            }
-            
+            }             
         }
+        
+        colorCell();
         })
+}
+function colorCell(){
+    for(i=0; i<81; i++){
+        if(resetArray[i]!==parseInt(allTds[i].innerHTML.trim() ) && mode==="play"){
+            allTds[i].style.color = "red"
+        }else if(allTds[i].style.color == "green"){
+            continue;
+        }else{
+            allTds[i].style.color = "gray";
+            let r;
+            for( r=0; r<81; ++r){
+                if(parseInt(allTds[r].innerHTML)!==resetArray[r]){
+                    break;
+                }
+            }
+            if(r===81){
+                gameOver.style.display="block";
+                gameOver.addEventListener("click",()=>{gameOver.style.display="none"; 
+            })
+            }
+        }
+    }
 }
 
 for(let i=0; i<allPs.length; ++i){
@@ -133,8 +140,12 @@ function initialMark(){
     for(let i=0; i<9; ++i){
         for(let j=0; j<9; ++j){
             if(allTds[counter].innerHTML.trim()!==""){
-                sudoku[i][j].length=1;
-                sudoku[i][j][0]=allTds[counter].innerHTML.trim();
+                if(allTds[counter].style.color !=="red"){
+                    sudoku[i][j].length=1;
+                    sudoku[i][j][0]=allTds[counter].innerHTML.trim();
+                }else{
+                    allTds[counter].innerHTML= "";
+                }
             }
             counter++
         }
@@ -154,27 +165,37 @@ function actuallyDo(){
             findSeulPossibility();
             crossOut();
             transferToTable();
+            outer:
             for(i=0;i<81;++i){
-                for(let k = 0; k < 9; k++){
-                    for(let m = 0; m <9; m++){
-                        try{
-                            if(sudoku[i][k][0] < 10){
-                                howManyChanged++;
-                                
+                
+                if(allTds[i].innerHTML.trim() === ""){
+                    break;
+                }
+                for(let j=0; j < 9; j++){
+                    for(let k=0; k<9; k++){
+                        for(let m=0; m<9 ; m++){                            
+                            try{
+                                if(sudoku[j][k][0] < 10){
+                                    howManyChanged++
+                                }
+                            }catch(e){
+                                if(sudoku[j][k][m] === "X"){
+                                    howManyChanged++
+                                }else{
+                                    alert("Fill the Sudoku Properly.")
+                                }
                             }
-                        }catch(e){
-                            if(sudoku[i][k][m]==="0"){
-                                howManyChanged++
-                            }
-                            continue;
-                            
                         }
                     }
                 }
             }
             for(let j=0; j< 81; j++){
-                if(allTds[i].innerHTML.trim()!==""){
-                    howManyChanged++
+                try{
+                    if(allTds[i].innerHTML.trim()!==""){
+                        howManyChanged++
+                    }
+                }catch(e){
+                    continue;
                 }
             }
             if(previous === howManyChanged){
@@ -186,7 +207,9 @@ function actuallyDo(){
                 complete=true;
             }
         }
-
+        
+    console.log("called colorcells")
+    colorCell();
 }
 function crossOut(){
     let counter=0;
@@ -230,7 +253,7 @@ function identifyLone(){
                 }
             }
             if(xs===8){
-                sudoku[i][j].length=0;
+                sudoku[i][j].length=1;
                 sudoku[i][j][0]=num;
                 transferToTable();
                 crossOut();
@@ -593,6 +616,4 @@ function gernerateSudoku(){
     populateSudoku()
     eraseRandom();
 } 
-function multiColLonesome(){
-    
-}
+
